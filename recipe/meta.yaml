@@ -33,7 +33,6 @@ requirements:
     - {{ pin_compatible("rocr-runtime", max_pin="x.x") }}
     - {{ pin_compatible("rocm-comgr", max_pin="x.x") }}
     - {{ pin_compatible("roct-thunk-interface", max_pin="x.x") }}
-    - rocminfo
     - perl *
 
 test:
