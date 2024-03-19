@@ -3,11 +3,11 @@ About hip-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hip-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/ROCm-Developer-Tools/HIP
+Home: https://github.com/ROCm/HIP
 
 Package license: NCSA
 
-Summary: HIP : Convert CUDA to Portable C++ Code
+Summary: HIP: C++ Heterogeneous-Compute Interface for Portability 
 
 Current build status
 ====================
