@@ -6,8 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/ROCm/HIP/archive/refs/tags/rocm-{{ version }}.tar.gz
-  sha256: b47178db94f2acc106e1a88ceb029844805266ebaba11ef63744e90d224b11be
+  - url: https://github.com/ROCm/HIP/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: b47178db94f2acc106e1a88ceb029844805266ebaba11ef63744e90d224b11be
+    folder: hip
+
+  - url: https://github.com/ROCm/clr/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: cb8ac610c8d4041b74fb3129c084f1e7b817ce1a5a9943feca1fa7531dc7bdcc
+    folder: clr
 
 build:
   number: 0
@@ -17,23 +22,24 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ cdt('xorg-x11-proto-devel') }}
+    - {{ cdt('libx11-devel') }}
+    - {{ cdt('mesa-libgl-devel') }}
+    - {{ cdt('mesa-libegl-devel') }}
+    - sysroot_linux-64 2.17  # [linux64]
     - cmake
     - make
-    - perl *
+    - cppheaderparser
+    - wget
   host:
-    - rocr-runtime         {{ ".".join(version.split(".")[:2]) }}
-    - rocm-device-libs     {{ ".".join(version.split(".")[:2]) }}
-    - roct-thunk-interface {{ ".".join(version.split(".")[:2]) }}
-    - rocm-comgr           {{ ".".join(version.split(".")[:2]) }}
-    - clangdev
-    - llvmdev
-    - llvm
-    - perl *
-  run:
-    - {{ pin_compatible("rocr-runtime", max_pin="x.x") }}
-    - {{ pin_compatible("rocm-comgr", max_pin="x.x") }}
-    - {{ pin_compatible("roct-thunk-interface", max_pin="x.x") }}
-    - perl *
+    - rocm-cmake           {{ version }}
+    - rocr-runtime         {{ version }}
+    - rocm-comgr           {{ version }}
+    - hipcc                {{ version }}
+    - clangdev 17.*
+    - llvmdev  17.*
+    - zlib
+    - ocl-icd
 
 test:
   commands:
@@ -42,11 +48,11 @@ test:
     - $PREFIX/bin/hipconfig
 
 about:
-  home: https://github.com/ROCm-Developer-Tools/HIP
+  home: https://github.com/ROCm/HIP
   license: NCSA
   license_family: MIT
   license_file: LICENSE
-  summary: 'HIP : Convert CUDA to Portable C++ Code'
+  summary: 'HIP: C++ Heterogeneous-Compute Interface for Portability '
 
 extra:
   recipe-maintainers:

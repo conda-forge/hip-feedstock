@@ -1,27 +1,19 @@
 #!/bin/bash
 
-export CC=$PREFIX/bin/clang
-export CXX=$PREFIX/bin/clang++
-export CONDA_BUILD_SYSROOT=$PREFIX/$HOST/sysroot
-
-for f in hipconfig hipcc hipify-cmakefile hipify-perl; do
-    sed -i '1c#!/usr/bin/env perl' bin/$f;
-done
-sed -i 's/if(${RUN_HIT} EQUAL 0)/if(FALSE)/g' CMakeLists.txt
-
-mkdir build
+cd clr
+mkdir -p build
 cd build
 
-cmake \
-  -DCMAKE_INSTALL_PREFIX=$PREFIX \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_LIBDIR=lib \
-  -DHIP_COMPILER=hcc \
-  -DHSA_PATH=$PREFIX \
-  -DHIP_PATH=$PREFIX \
-  -DHIP_CLANG_PATH=$PREFIX/bin \
-  -DDEVICE_LIB_PATH=$PREFIX/lib \
-  -DBUILD_HIPIFY_CLANG=yes \
+export CXXFLAGS="$CXXFLAGS -I$SRC_DIR/clr/opencl/khronos/headers/opencl2.2/"
+
+cmake ${CMAKE_ARGS} \
+  -DCLR_BUILD_HIP=ON \
+  -DCLR_BUILD_OCL=ON \
+  -DHIPCC_BIN_DIR=$PREFIX/bin \
+  -DHIP_COMMON_DIR=$SRC_DIR/hip \
+  -DPython3_EXECUTABLE=$BUILD_PREFIX/bin/python \
+  -DROCM_PATH=$PREFIX \
+  -DAMD_OPENCL_INCLUDE_DIR=$SRC_DIR/clr/opencl/amdocl/ \
   ..
 
 make VERBOSE=1 -j${CPU_COUNT}
