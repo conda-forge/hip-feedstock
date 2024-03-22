@@ -53,7 +53,9 @@ about:
   home: https://github.com/ROCm/HIP
   license: NCSA
   license_family: MIT
-  license_file: LICENSE
+  license_file:
+    - clr/LICENSE
+    - hip/LICENSE.txt
   summary: 'HIP: C++ Heterogeneous-Compute Interface for Portability '
 
 extra:
