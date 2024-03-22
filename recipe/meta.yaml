@@ -13,6 +13,8 @@ source:
   - url: https://github.com/ROCm/clr/archive/refs/tags/rocm-{{ version }}.tar.gz
     sha256: cb8ac610c8d4041b74fb3129c084f1e7b817ce1a5a9943feca1fa7531dc7bdcc
     folder: clr
+    patches:
+      - 0001-Don-t-try-to-install-windows-files-on-linux.patch
 
 build:
   number: 0
