@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -xeuo pipefail
+
 cd clr
 mkdir -p build
 cd build
