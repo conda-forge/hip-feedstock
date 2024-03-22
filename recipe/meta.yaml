@@ -50,6 +50,8 @@ requirements:
     - rocr-runtime         {{ version }}
 
 test:
+  requires:
+    - hipcc                {{ version }}
   commands:
     - $PREFIX/bin/hipcc --amdgpu-target=gfx803 --version
     - $PREFIX/bin/hipify-clang --version
