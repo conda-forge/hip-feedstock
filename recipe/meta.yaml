@@ -34,14 +34,18 @@ requirements:
     - cppheaderparser
     - wget
   host:
-    - rocm-cmake           {{ version }}
-    - rocr-runtime         {{ version }}
-    - rocm-comgr           {{ version }}
-    - hipcc                {{ version }}
     - clangdev 17.*
+    - hipcc                {{ version }}
+    - libnuma
     - llvmdev  17.*
-    - zlib
     - ocl-icd
+    - rocm-cmake           {{ version }}
+    - rocm-comgr           {{ version }}
+    - rocr-runtime         {{ version }}
+    - zlib
+  run:
+    - rocm-comgr           {{ version }}
+    - rocr-runtime         {{ version }}
 
 test:
   commands:
