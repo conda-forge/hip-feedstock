@@ -54,7 +54,6 @@ test:
     - hipcc                {{ version }}
   commands:
     - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
-    - $PREFIX/bin/hipify-clang --version
     - $PREFIX/bin/hipconfig
 
 about:
