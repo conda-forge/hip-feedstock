@@ -53,7 +53,7 @@ test:
   requires:
     - hipcc                {{ version }}
   commands:
-    - $PREFIX/bin/hipcc --amdgpu-target=gfx803 --version
+    - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
     - $PREFIX/bin/hipify-clang --version
     - $PREFIX/bin/hipconfig
 
