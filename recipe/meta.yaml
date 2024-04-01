@@ -41,17 +41,20 @@ requirements:
     - libnuma
     - llvmdev  17.*
     - ocl-icd
+    - python
     - rocm-cmake           {{ version }}
     - rocm-comgr           {{ version }}
     - rocr-runtime         {{ version }}
     - zlib
   run:
+    - python
     - rocm-comgr           {{ version }}
     - rocr-runtime         {{ version }}
 
 test:
   requires:
     - hipcc                {{ version }}
+    - clang
   commands:
     - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
     - $PREFIX/bin/hipconfig
