@@ -54,7 +54,8 @@ requirements:
 test:
   requires:
     - hipcc                {{ version }}
-    - clang
+    - clangxx
+    - llvm-tools
   commands:
     - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
     - $PREFIX/bin/hipconfig
