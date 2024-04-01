@@ -18,6 +18,7 @@ cmake -LAH --debug-find \
   -DROCM_PATH=$PREFIX \
   -DAMD_OPENCL_INCLUDE_DIR=$SRC_DIR/clr/opencl/amdocl/ \
   -DPROF_API_HEADER_PATH=$SRC_DIR/clr/rocclr/platform/ \
+  -DPROF_API_HEADER_DIR=$SRC_DIR/clr/rocclr/platform/ \
   ..
 
 make VERBOSE=1 -j${CPU_COUNT}
