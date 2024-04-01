@@ -8,7 +8,7 @@ cd build
 
 export CXXFLAGS="$CXXFLAGS -I$SRC_DIR/clr/opencl/khronos/headers/opencl2.2/"
 
-cmake -LAH --debug-find \
+cmake -LAH \
   ${CMAKE_ARGS} \
   -DCLR_BUILD_HIP=ON \
   -DCLR_BUILD_OCL=ON \
@@ -17,7 +17,6 @@ cmake -LAH --debug-find \
   -DPython3_EXECUTABLE=$BUILD_PREFIX/bin/python \
   -DROCM_PATH=$PREFIX \
   -DAMD_OPENCL_INCLUDE_DIR=$SRC_DIR/clr/opencl/amdocl/ \
-  -DPROF_API_HEADER_PATH=$SRC_DIR/clr/rocclr/platform/ \
   -DPROF_API_HEADER_DIR=$SRC_DIR/clr/rocclr/platform/ \
   ..
 
@@ -31,5 +30,3 @@ do
     mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
     cp "${RECIPE_DIR}/activate/${CHANGE}.sh" "${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}_${CHANGE}.sh"
 done
-
-exit 1
