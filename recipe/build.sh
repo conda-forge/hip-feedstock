@@ -8,7 +8,8 @@ cd build
 
 export CXXFLAGS="$CXXFLAGS -I$SRC_DIR/clr/opencl/khronos/headers/opencl2.2/"
 
-cmake ${CMAKE_ARGS} \
+cmake -LAH --debug-find \
+  ${CMAKE_ARGS} \
   -DCLR_BUILD_HIP=ON \
   -DCLR_BUILD_OCL=ON \
   -DHIPCC_BIN_DIR=$PREFIX/bin \
