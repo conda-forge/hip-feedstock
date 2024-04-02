@@ -18,6 +18,11 @@ source:
       - 0001-Mark-raw-strings.patch
       - 0002-Remove-download-of-libamd64.so.5.patch
 
+  - url: https://github.com/ROCm/HIPCC/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: d6209b14fccdd00d7231dec4b4f962aa23914b9dde389ba961370e8ba918bde5
+    folder: hipcc
+
+
 build:
   number: 0
   skip: True  # [not linux]
@@ -37,7 +42,6 @@ requirements:
     - wget
   host:
     - clangdev 17.*
-    - hipcc                {{ version }}
     - libnuma
     - llvmdev  17.*
     - ocl-icd
@@ -49,7 +53,11 @@ requirements:
   run:
     - python
     - rocm-comgr           {{ version }}
+    - rocminfo             {{ version }}
     - rocr-runtime         {{ version }}
+    - clang
+    - clangxx
+    - perl
 
 test:
   requires:

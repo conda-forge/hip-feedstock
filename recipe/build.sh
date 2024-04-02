@@ -2,8 +2,16 @@
 
 set -xeuo pipefail
 
-cd clr
-mkdir -p build
+pushd hipcc
+mkdir build
+cd build
+cmake ${CMAKE_ARGS} ..
+make VERBOSE=1 -j${CPU_COUNT}
+make install
+popd
+
+pushd clr
+mkdir build
 cd build
 
 export CXXFLAGS="$CXXFLAGS -I$SRC_DIR/clr/opencl/khronos/headers/opencl2.2/"
@@ -25,6 +33,8 @@ make VERBOSE=1 -j${CPU_COUNT}
 make install
 
 rm $PREFIX/include/prof_protocol.h
+
+popd
 
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
