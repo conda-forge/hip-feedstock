@@ -51,19 +51,16 @@ requirements:
     - rocr-runtime         {{ version }}
     - zlib
   run:
+    - clang
+    - clangxx
+    - llvm-tools
+    - perl
     - python
     - rocm-comgr           {{ version }}
     - rocminfo             {{ version }}
     - rocr-runtime         {{ version }}
-    - clang
-    - clangxx
-    - perl
 
 test:
-  requires:
-    - hipcc                {{ version }}
-    - clangxx
-    - llvm-tools
   commands:
     - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
     - $PREFIX/bin/hipconfig
