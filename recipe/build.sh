@@ -32,7 +32,30 @@ cmake -LAH \
 make VERBOSE=1 -j${CPU_COUNT}
 make install
 
-rm $PREFIX/include/prof_protocol.h
+FILES_TO_REMOVE="
+    lib/libOpenCL.so.1.2
+    lib/libcltrace.so
+    include/CL/cl.hpp
+    include/CL/cl2.hpp
+    include/prof_protocol.h
+    share/doc/opencl/LICENSE.txt
+    share/doc/opencl-asan/LICENSE.txt
+    bin/clinfo"
+
+DIRS_TO_REMOVE="
+    include/CL
+    share/doc/opencl
+    share/doc/opencl-asan"
+
+for FILE in $FILES_TO_REMOVE
+do
+  rm "$PREFIX/$FILE"
+done
+
+for DIR in $DIRS_TO_REMOVE
+do 
+  rmdir "$PREFIX/$DIR"
+done
 
 popd
 
