@@ -43,7 +43,6 @@ FILES_TO_REMOVE="
     bin/clinfo"
 
 DIRS_TO_REMOVE="
-    include/CL
     share/doc/opencl
     share/doc/opencl-asan"
 
