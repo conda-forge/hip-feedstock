@@ -38,12 +38,10 @@ FILES_TO_REMOVE="
     include/CL/cl.hpp
     include/CL/cl2.hpp
     include/prof_protocol.h
-    share/doc/opencl/LICENSE.txt
     share/doc/opencl-asan/LICENSE.txt
     bin/clinfo"
 
 DIRS_TO_REMOVE="
-    share/doc/opencl
     share/doc/opencl-asan"
 
 for FILE in $FILES_TO_REMOVE

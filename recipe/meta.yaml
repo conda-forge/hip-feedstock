@@ -64,6 +64,46 @@ requirements:
     - rocminfo             {{ version }}
     - rocr-runtime         {{ version }}
 
+outputs:
+  - name: hip-runtime-amd
+    files:
+      - lib/.hipInfo
+      - lib/cmake/hip/hip-targets*.cmake
+      - lib/cmake/hip-lang/*.cmake
+      - lib/cmake/hiprtc/*.cmake
+      - lib/libamdhip64.so*
+      - lib/libhiprtc.so*
+      - lib/libhiprtc-builtins.so*
+      - share/doc/hip/LICENSE.txt
+
+  - name: hip-devel
+    files:
+      - bin/hipcc_cmake_linker_helper
+      - bin/hipdemangleatp
+      - bin/roc-obj
+      - bin/roc-obj-extract
+      - bin/roc-obj-ls
+      - include/hip/amd-detail/*.h
+      - include/hip/*.h
+      - lib/cmake/hip/FindHIP.cmake
+      - lib/cmake/hip/FindHIP/*.cmake
+      - lib/cmake/hip/hip-config*.cmake
+      - share/hip/version
+
+  - name: hipcc
+    files:
+      - bin/hipcc
+      - bin/hipcc.bin
+      - bin/hipcc.pl
+      - bin/hipconfig*
+      - bin/hipvars.pm
+      - share/doc/hipcc/*
+
+  - name: rocm-opencl
+    files:
+      - lib/libamdocl64.so
+      - share/doc/opencl/LICENSE.txt
+
 test:
   commands:
     - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
