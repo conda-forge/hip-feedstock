@@ -74,8 +74,9 @@ about:
   license: NCSA
   license_family: MIT
   license_file:
-    - clr-LICENSE
-    - hip-LICENSE.txt
+    - clr/LICENCE
+    - hip/LICENSE.txt
+    - hipcc/LICENSE.txt
   summary: 'HIP: C++ Heterogeneous-Compute Interface for Portability '
 
 extra:
