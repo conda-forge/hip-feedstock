@@ -66,6 +66,10 @@ requirements:
 
 outputs:
   - name: hip-runtime-amd
+    requirements:
+      run:
+        - {{ pin_compatible("rocm-comgr") }}
+        - {{ pin_compatible("rocr-runtime") }}
     files:
       - lib/.hipInfo
       - lib/cmake/hip/hip-targets*.cmake
@@ -81,6 +85,8 @@ outputs:
         - test -f $PREFIX/lib/libamdhip64.so
 
   - name: hip-devel
+    run_exports:
+      - {{ pin_subpackage("hip-runtime-amd", exact=True) }}
     files:
       - bin/hipcc_cmake_linker_helper
       - bin/hipdemangleatp
@@ -100,6 +106,9 @@ outputs:
         - test -f $PREFIX/include/hip/hip_common.h
 
   - name: hipcc
+    requirements:
+      host:
+        - hip-devel
     files:
       - bin/hipcc
       - bin/hipcc.bin
@@ -107,13 +116,16 @@ outputs:
       - bin/hipconfig*
       - bin/hipvars.pm
       - share/doc/hipcc/*
-
     test:
       commands:
         - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
         - $PREFIX/bin/hipconfig
 
   - name: rocm-opencl
+    requirements:
+      run:
+        - {{ pin_compatible("rocm-comgr") }}
+        - {{ pin_compatible("rocr-runtime") }}
     files:
       - lib/libamdocl64.so
       - share/doc/opencl/LICENSE.txt
