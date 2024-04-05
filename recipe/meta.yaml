@@ -88,6 +88,9 @@ outputs:
         - test -f $PREFIX/lib/libamdhip64.so
 
   - name: hip-devel
+    requirements:
+      run:
+        - {{ pin_subpackage("hip-runtime-amd") }}
     run_exports:
       - {{ pin_subpackage("hip-runtime-amd") }}
     files:
@@ -116,12 +119,10 @@ outputs:
         - sysroot_linux-64 2.17  # [linux64]
       host:
         - {{ pin_subpackage("hip-devel", exact=True) }}
-        - numactl
       run:
         - {{ pin_subpackage("hip-devel", exact=True) }}
         - clang
         - clangxx
-        - libnuma
         - llvm-tools
         - perl
         - python
