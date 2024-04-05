@@ -169,7 +169,8 @@ outputs:
     files:
       - etc/OpenCL/vendors/amdocl64.icd
     test:
-      - test -f $PREFIX/etc/OpenCL/vendors/amdocl64.icd
+      commands:
+        - test -f $PREFIX/etc/OpenCL/vendors/amdocl64.icd
 
 about:
   home: https://github.com/ROCm/HIP
