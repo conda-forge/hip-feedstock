@@ -1,60 +1,188 @@
 {% set name = "hip" %}
-{% set version = "2.7.2" %}
+{% set version = "6.0.2" %}
+{% set major_version = version.split('.')[0] %}
+{% set minor_version = version.split('.')[1] %}
+{% set major_minor_version = ".".join(version.split(".")[:2]) %}
+{% set patch_version = version.split('.')[2] %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  # Need git for version info generation in cmake
-  git_url: https://github.com/ROCm-Developer-Tools/HIP.git
-  git_tag: roc-{{ version }}
-  #url: https://github.com/ROCm-Developer-Tools/HIP/archive/roc-{{ version }}.tar.gz
-  #sha256: 576ece14983ca257e5b64fedbf08c5a19bfad179d64d971e377eb91dac35a7e6
+  - url: https://github.com/ROCm/HIP/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: b47178db94f2acc106e1a88ceb029844805266ebaba11ef63744e90d224b11be
+    folder: hip
+
+  - url: https://github.com/ROCm/clr/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: cb8ac610c8d4041b74fb3129c084f1e7b817ce1a5a9943feca1fa7531dc7bdcc
+    folder: clr
+    patches:
+      - 0001-Don-t-try-to-install-windows-files-on-linux.patch
+      - 0001-Mark-raw-strings.patch
+      - 0002-Remove-download-of-libamd64.so.5.patch
+
+  - url: https://github.com/ROCm/HIPCC/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: d6209b14fccdd00d7231dec4b4f962aa23914b9dde389ba961370e8ba918bde5
+    folder: hipcc
+    patches:
+      - 0001-Remove-QUIET-from-cmake-rocm-detection.patch
+      - 0002-Make-rocm-cmake-required.patch
+      - 0003-Fix-cmake-backward-compatibility.patch
 
 build:
-  number: 1
+  number: 0
   skip: True  # [not linux]
-  merge_build_host: True
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ cdt('xorg-x11-proto-devel') }}
+    - {{ cdt('libx11-devel') }}
+    - {{ cdt('mesa-libgl-devel') }}
+    - {{ cdt('mesa-libegl-devel') }}
+    - sysroot_linux-64 2.17  # [linux64]
     - cmake
     - make
-    - perl *
+    - cppheaderparser
+    - wget
   host:
-    - rocr-runtime         {{ ".".join(version.split(".")[:2]) }}
-    - rocm-device-libs     {{ ".".join(version.split(".")[:2]) }}
-    - roct-thunk-interface {{ ".".join(version.split(".")[:2]) }}
-    - rocm-comgr           {{ ".".join(version.split(".")[:2]) }}
-    - hcc                  {{ version }}
-    - clangdev 9.0.*
-    - llvmdev 9.0.*
-    - llvm
-    - perl *
-  run:
-    - {{ pin_compatible("rocr-runtime", max_pin="x.x") }}
-    - {{ pin_compatible("rocm-comgr", max_pin="x.x") }}
-    - {{ pin_compatible("roct-thunk-interface", max_pin="x.x") }}
-    - hcc                  {{ version }}
-    - rocminfo
-    - perl *
+    - clangdev 17.*
+    - numactl
+    - llvmdev  17.*
+    - ocl-icd
+    - python
+    - rocm-comgr {{ major_minor_version }}.*
+    - rocr-runtime {{ major_minor_version }}.*
+    - rocm-cmake {{ major_minor_version }}.*
+    - zlib
 
-test:
-  commands:
-    - $PREFIX/bin/hipcc --amdgpu-target=gfx803 --version
-    - $PREFIX/bin/hipify-clang --version
-    - $PREFIX/bin/hipconfig
+outputs:
+  - name: hip-runtime-amd
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - sysroot_linux-64 2.17  # [linux64]
+      host:
+        - numactl
+        - rocm-comgr {{ major_minor_version }}.*
+        - rocr-runtime {{ major_minor_version }}.*
+      run:
+        - libnuma  # to work around missing run_exports in numactl
+        - rocm-comgr {{ major_minor_version }}.*
+        - rocr-runtime {{ major_minor_version }}.*
+    files:
+      - lib/.hipInfo
+      - lib/cmake/hip/hip-targets*.cmake
+      - lib/cmake/hip-lang/*.cmake
+      - lib/cmake/hiprtc/*.cmake
+      - lib/libamdhip64.so*
+      - lib/libhiprtc.so*
+      - lib/libhiprtc-builtins.so*
+      - share/doc/hip/LICENSE.txt
+    test:
+      commands:
+        - test -f $PREFIX/lib/.hipInfo
+        - test -f $PREFIX/lib/libamdhip64.so
+
+  - name: hip-devel
+    requirements:
+      run:
+        - {{ pin_subpackage("hip-runtime-amd") }}
+    run_exports:
+      - {{ pin_subpackage("hip-runtime-amd") }}
+    files:
+      - bin/hipcc_cmake_linker_helper
+      - bin/hipdemangleatp
+      - bin/roc-obj
+      - bin/roc-obj-extract
+      - bin/roc-obj-ls
+      - include/hip/amd_detail/*.h
+      - include/hip/*.h
+      - lib/cmake/hip/FindHIP.cmake
+      - lib/cmake/hip/FindHIP/*.cmake
+      - lib/cmake/hip/hip-config*.cmake
+      - share/hip/version
+    test:
+      commands:
+        - test -f $PREFIX/share/hip/version
+        - test -f $PREFIX/lib/cmake/hip/FindHIP.cmake
+        - test -f $PREFIX/include/hip/hip_common.h
+
+  - name: hipcc
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - sysroot_linux-64 2.17  # [linux64]
+      host:
+        - {{ pin_subpackage("hip-devel", exact=True) }}
+      run:
+        - {{ pin_subpackage("hip-devel", exact=True) }}
+        - clang
+        - clangxx
+        - llvm-tools
+        - perl
+        - python
+        - rocminfo {{ major_minor_version }}.*
+    files:
+      - bin/hipcc
+      - bin/hipcc.bin
+      - bin/hipcc.pl
+      - bin/hipconfig*
+      - bin/hipvars.pm
+      - share/doc/hipcc/*
+    test:
+      commands:
+        - $PREFIX/bin/hipcc --offload-arch=gfx803 --version
+        - $PREFIX/bin/hipconfig
+
+  - name: rocm-opencl
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - sysroot_linux-64 2.17  # [linux64]
+      host:
+        - numactl
+        - rocm-comgr {{ version }}
+        - rocr-runtime {{ version }}
+      run:
+        - {{ pin_compatible("rocm-comgr") }}
+        - {{ pin_compatible("rocr-runtime") }}
+        - libnuma
+    files:
+      - lib/libamdocl64.so
+      - share/doc/opencl/LICENSE.txt
+    test:
+      commands:
+        - test -f $PREFIX/lib/libamdocl64.so
+
+  - name: rocm-opencl-runtime
+    requirements:
+      run:
+        - {{ pin_subpackage("rocm-opencl", exact=True) }}
+        - ocl-icd                 # [linux]
+        - khronos-ocl-icd-loader  # [not linux]
+    files:
+      - etc/OpenCL/vendors/amdocl64.icd
+    test:
+      commands:
+        - test -f $PREFIX/etc/OpenCL/vendors/amdocl64.icd
 
 about:
-  home: https://github.com/ROCm-Developer-Tools/HIP
+  home: https://github.com/ROCm/HIP
   license: NCSA
   license_family: MIT
-  license_file: LICENSE
-  summary: 'HIP : Convert CUDA to Portable C++ Code'
+  license_file:
+    - clr/LICENCE
+    - hip/LICENSE.txt
+    - hipcc/LICENSE.txt
+  summary: 'HIP: C++ Heterogeneous-Compute Interface for Portability '
 
 extra:
   recipe-maintainers:
     - isuruf
+    - zklaus
