@@ -160,6 +160,17 @@ outputs:
       commands:
         - test -f $PREFIX/lib/libamdocl64.so
 
+  - name: rocm-opencl-runtime
+    requirements:
+      run:
+        - {{ pin_subpackage("rocm-opencl", exact=True) }}
+        - ocl-icd                 # [linux]
+        - khronos-ocl-icd-loader  # [not linux]
+    files:
+      - etc/OpenCL/vendors/amdocl64.icd
+    test:
+      - test -f $PREFIX/etc/OpenCL/vendors/amdocl64.icd
+
 about:
   home: https://github.com/ROCm/HIP
   license: NCSA

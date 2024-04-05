@@ -63,3 +63,7 @@ do
     mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
     cp "${RECIPE_DIR}/activate/${CHANGE}.sh" "${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}_${CHANGE}.sh"
 done
+
+# register the opencl implementation
+mkdir -p $PREFIX/etc/OpenCL/vendors
+echo "$PREFIX/lib/lib/libamdocl64.so" >> $PREFIX/etc/OpenCL/vendors/amdocl64.icd
