@@ -75,6 +75,10 @@ outputs:
       - lib/libhiprtc.so*
       - lib/libhiprtc-builtins.so*
       - share/doc/hip/LICENSE.txt
+    test:
+      commands:
+        - test -f $PREFIX/lib/.hipInfo
+        - test -f $PREFIX/lib/libamdhip64.so
 
   - name: hip-devel
     files:
@@ -89,6 +93,11 @@ outputs:
       - lib/cmake/hip/FindHIP/*.cmake
       - lib/cmake/hip/hip-config*.cmake
       - share/hip/version
+    test:
+      commands:
+        - test -f $PREFIX/share/hip/version
+        - test -f $PREFIX/lib/cmake/FindHIP.cmake
+        - test -f $PREFIX/include/hip/hip_common.h
 
   - name: hipcc
     files:
@@ -108,6 +117,9 @@ outputs:
     files:
       - lib/libamdocl64.so
       - share/doc/opencl/LICENSE.txt
+    test:
+      commands:
+        - test -f $PREFIX/lib/libamdocl64.so
 
 about:
   home: https://github.com/ROCm/HIP
