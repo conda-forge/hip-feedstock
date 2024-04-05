@@ -1,5 +1,9 @@
 {% set name = "hip" %}
 {% set version = "6.0.2" %}
+{% set major_version = version.split('.')[0] %}
+{% set minor_version = version.split('.')[1] %}
+{% set major_minor_version = ".".join(version.split(".")[:2]) %}
+{% set patch_version = version.split('.')[2] %}
 
 package:
   name: {{ name|lower }}
@@ -49,27 +53,26 @@ requirements:
     - llvmdev  17.*
     - ocl-icd
     - python
-    - rocm-cmake           {{ version }}
-    - rocm-comgr           {{ version }}
-    - rocr-runtime         {{ version }}
+    - rocm-comgr {{ major_minor_version }}.*
+    - rocr-runtime {{ major_minor_version }}.*
+    - rocm-cmake {{ major_minor_version }}.*
     - zlib
-  run:
-    - clang
-    - clangxx
-    - libnuma
-    - llvm-tools
-    - perl
-    - python
-    - rocm-comgr           {{ version }}
-    - rocminfo             {{ version }}
-    - rocr-runtime         {{ version }}
 
 outputs:
   - name: hip-runtime-amd
     requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - sysroot_linux-64 2.17  # [linux64]
+      host:
+        - numactl
+        - rocm-comgr {{ major_minor_version }}.*
+        - rocr-runtime {{ major_minor_version }}.*
       run:
-        - {{ pin_compatible("rocm-comgr") }}
-        - {{ pin_compatible("rocr-runtime") }}
+        - libnuma  # to work around missing run_exports in numactl
+        - rocm-comgr {{ major_minor_version }}.*
+        - rocr-runtime {{ major_minor_version }}.*
     files:
       - lib/.hipInfo
       - lib/cmake/hip/hip-targets*.cmake
@@ -86,14 +89,14 @@ outputs:
 
   - name: hip-devel
     run_exports:
-      - {{ pin_subpackage("hip-runtime-amd", exact=True) }}
+      - {{ pin_subpackage("hip-runtime-amd") }}
     files:
       - bin/hipcc_cmake_linker_helper
       - bin/hipdemangleatp
       - bin/roc-obj
       - bin/roc-obj-extract
       - bin/roc-obj-ls
-      - include/hip/amd-detail/*.h
+      - include/hip/amd_detail/*.h
       - include/hip/*.h
       - lib/cmake/hip/FindHIP.cmake
       - lib/cmake/hip/FindHIP/*.cmake
@@ -102,13 +105,27 @@ outputs:
     test:
       commands:
         - test -f $PREFIX/share/hip/version
-        - test -f $PREFIX/lib/cmake/FindHIP.cmake
+        - test -f $PREFIX/lib/cmake/hip/FindHIP.cmake
         - test -f $PREFIX/include/hip/hip_common.h
 
   - name: hipcc
     requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - sysroot_linux-64 2.17  # [linux64]
       host:
-        - hip-devel
+        - {{ pin_subpackage("hip-devel", exact=True) }}
+        - numactl
+      run:
+        - {{ pin_subpackage("hip-devel", exact=True) }}
+        - clang
+        - clangxx
+        - libnuma
+        - llvm-tools
+        - perl
+        - python
+        - rocminfo {{ major_minor_version }}.*
     files:
       - bin/hipcc
       - bin/hipcc.bin
@@ -123,9 +140,18 @@ outputs:
 
   - name: rocm-opencl
     requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - sysroot_linux-64 2.17  # [linux64]
+      host:
+        - numactl
+        - rocm-comgr {{ version }}
+        - rocr-runtime {{ version }}
       run:
         - {{ pin_compatible("rocm-comgr") }}
         - {{ pin_compatible("rocr-runtime") }}
+        - libnuma
     files:
       - lib/libamdocl64.so
       - share/doc/opencl/LICENSE.txt
