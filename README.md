@@ -27,10 +27,38 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64</td>
+              <td>linux_64_python3.10.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.10.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_python3.11.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.11.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_python3.12.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.12.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_python3.8.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.8.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_python3.9.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.9.____cpython" alt="variant">
                 </a>
               </td>
             </tr>
@@ -46,7 +74,11 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-hip-green.svg)](https://anaconda.org/conda-forge/hip) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip.svg)](https://anaconda.org/conda-forge/hip) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip.svg)](https://anaconda.org/conda-forge/hip) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip.svg)](https://anaconda.org/conda-forge/hip) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-hip--devel-green.svg)](https://anaconda.org/conda-forge/hip-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip-devel.svg)](https://anaconda.org/conda-forge/hip-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip-devel.svg)](https://anaconda.org/conda-forge/hip-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip-devel.svg)](https://anaconda.org/conda-forge/hip-devel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-hip--runtime--amd-green.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip-runtime-amd.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip-runtime-amd.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip-runtime-amd.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-hipcc-green.svg)](https://anaconda.org/conda-forge/hipcc) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hipcc.svg)](https://anaconda.org/conda-forge/hipcc) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hipcc.svg)](https://anaconda.org/conda-forge/hipcc) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hipcc.svg)](https://anaconda.org/conda-forge/hipcc) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-rocm--opencl-green.svg)](https://anaconda.org/conda-forge/rocm-opencl) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/rocm-opencl.svg)](https://anaconda.org/conda-forge/rocm-opencl) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/rocm-opencl.svg)](https://anaconda.org/conda-forge/rocm-opencl) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/rocm-opencl.svg)](https://anaconda.org/conda-forge/rocm-opencl) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-rocm--opencl--runtime-green.svg)](https://anaconda.org/conda-forge/rocm-opencl-runtime) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/rocm-opencl-runtime.svg)](https://anaconda.org/conda-forge/rocm-opencl-runtime) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/rocm-opencl-runtime.svg)](https://anaconda.org/conda-forge/rocm-opencl-runtime) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/rocm-opencl-runtime.svg)](https://anaconda.org/conda-forge/rocm-opencl-runtime) |
 
 Installing hip
 ==============
@@ -58,41 +90,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `hip` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `hip-devel, hip-runtime-amd, hipcc, rocm-opencl, rocm-opencl-runtime` can be installed with `conda`:
 
 ```
-conda install hip
-```
-
-or with `mamba`:
-
-```
-mamba install hip
-```
-
-It is possible to list all of the versions of `hip` available on your platform with `conda`:
-
-```
-conda search hip --channel conda-forge
+conda install hip-devel hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
 ```
 
 or with `mamba`:
 
 ```
-mamba search hip --channel conda-forge
+mamba install hip-devel hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
+```
+
+It is possible to list all of the versions of `hip-devel` available on your platform with `conda`:
+
+```
+conda search hip-devel --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search hip-devel --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search hip --channel conda-forge
+mamba repoquery search hip-devel --channel conda-forge
 
-# List packages depending on `hip`:
-mamba repoquery whoneeds hip --channel conda-forge
+# List packages depending on `hip-devel`:
+mamba repoquery whoneeds hip-devel --channel conda-forge
 
-# List dependencies of `hip`:
-mamba repoquery depends hip --channel conda-forge
+# List dependencies of `hip-devel`:
+mamba repoquery depends hip-devel --channel conda-forge
 ```
 
 
