@@ -31,7 +31,7 @@ source:
       - 0003-Fix-cmake-backward-compatibility.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [not linux]
 
 requirements:
