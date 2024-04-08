@@ -47,12 +47,12 @@ requirements:
     - make
     - cppheaderparser
     - wget
+    - python *
   host:
     - clangdev 17.*
     - numactl
     - llvmdev  17.*
     - ocl-icd
-    - python
     - rocm-comgr {{ major_minor_version }}.*
     - rocr-runtime {{ major_minor_version }}.*
     - rocm-cmake {{ major_minor_version }}.*
@@ -125,7 +125,7 @@ outputs:
         - clangxx
         - llvm-tools
         - perl
-        - python
+        - python *
         - rocminfo {{ major_minor_version }}.*
     files:
       - bin/hipcc
