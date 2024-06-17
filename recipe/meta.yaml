@@ -21,6 +21,7 @@ source:
       - 0001-Don-t-try-to-install-windows-files-on-linux.patch
       - 0001-Mark-raw-strings.patch
       - 0002-Remove-download-of-libamd64.so.5.patch
+      - 0004-Fix-hip-config.cmake-when-it-is-not-a-symlink.patch
 
   - url: https://github.com/ROCm/HIPCC/archive/refs/tags/rocm-{{ version }}.tar.gz
     sha256: d6209b14fccdd00d7231dec4b4f962aa23914b9dde389ba961370e8ba918bde5
@@ -31,7 +32,7 @@ source:
       - 0003-Fix-cmake-backward-compatibility.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [not linux]
 
 requirements:
