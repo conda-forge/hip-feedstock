@@ -31,8 +31,12 @@ source:
       - 0002-Make-rocm-cmake-required.patch
       - 0003-Fix-cmake-backward-compatibility.patch
 
+  - url: https://github.com/ROCm/hipother/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: 0bebb3774debcecc0b29a0cc5aa98e373a3ee7acf161503d0d9c9d0ecc8b8010
+    folder: hipother
+    
 build:
-  number: 3
+  number: 4
   skip: True  # [not linux]
 
 requirements:
@@ -101,6 +105,7 @@ outputs:
       - bin/roc-obj-extract
       - bin/roc-obj-ls
       - include/hip/amd_detail/*.h
+      - include/hip/nvidia_detail/*.h      
       - include/hip/*.h
       - lib/cmake/hip/FindHIP.cmake
       - lib/cmake/hip/FindHIP/*.cmake
