@@ -1,0 +1,69 @@
+From 1287d7e4a652ba552e392330e65adf1697e0d849 Mon Sep 17 00:00:00 2001
+From: sdashmiz <shadi.dashmiz@amd.com>
+Date: Mon, 22 Apr 2024 11:13:15 -0400
+Subject: [PATCH] SWDEV-458069 - Fix return of local variable
+
+Signed-off-by: sdashmiz <shadi.dashmiz@amd.com>
+Change-Id: I8964f988383f61e35363490b669a416341150979
+---
+ .../nvidia_detail/nvidia_hip_runtime_api.h    | 40 +++++++++----------
+ 1 file changed, 19 insertions(+), 21 deletions(-)
+
+diff --git a/hipnv/include/hip/nvidia_detail/nvidia_hip_runtime_api.h b/hipnv/include/hip/nvidia_detail/nvidia_hip_runtime_api.h
+index 36949e1..cafe4e4 100644
+--- a/hipnv/include/hip/nvidia_detail/nvidia_hip_runtime_api.h
++++ b/hipnv/include/hip/nvidia_detail/nvidia_hip_runtime_api.h
+@@ -478,34 +478,32 @@ typedef struct HIP_RESOURCE_DESC_st
+     unsigned int flags;                          /**< Flags (must be zero) */
+ } HIP_RESOURCE_DESC;
+ 
+-static inline CUDA_RESOURCE_DESC* hipResourceDesTocudaResourceDes(const HIP_RESOURCE_DESC* p){
+-    CUDA_RESOURCE_DESC a;
++static inline void hipResourceDesTocudaResourceDes(CUDA_RESOURCE_DESC* a, const HIP_RESOURCE_DESC* p){
+     switch (p->resType) {
+         case HIP_RESOURCE_TYPE_ARRAY:
+-            a.resType = CU_RESOURCE_TYPE_ARRAY;
++            a->resType = CU_RESOURCE_TYPE_ARRAY;
+         case HIP_RESOURCE_TYPE_MIPMAPPED_ARRAY:
+-            a.resType = CU_RESOURCE_TYPE_MIPMAPPED_ARRAY;
++            a->resType = CU_RESOURCE_TYPE_MIPMAPPED_ARRAY;
+         case HIP_RESOURCE_TYPE_LINEAR:
+-            a.resType = CU_RESOURCE_TYPE_LINEAR;
++            a->resType = CU_RESOURCE_TYPE_LINEAR;
+         case HIP_RESOURCE_TYPE_PITCH2D:
+-            a.resType = CU_RESOURCE_TYPE_PITCH2D;
++            a->resType = CU_RESOURCE_TYPE_PITCH2D;
+         default:
+-            a.resType = CU_RESOURCE_TYPE_ARRAY;
++            a->resType = CU_RESOURCE_TYPE_ARRAY;
+     }
+-    a.res.array.hArray = (CUarray)p->res.array.hArray;
+-    a.res.mipmap.hMipmappedArray = (CUmipmappedArray)p->res.mipmap.hMipmappedArray;
+-    a.res.linear.devPtr = p->res.linear.devPtr;
+-    a.res.linear.format = p->res.linear.format;
+-    a.res.linear.numChannels = p->res.linear.numChannels;
+-    a.res.linear.sizeInBytes = p->res.linear.sizeInBytes;
+-    a.res.pitch2D.devPtr = p->res.pitch2D.devPtr;
+-    a.res.pitch2D.numChannels = p->res.pitch2D.numChannels;
+-    a.res.pitch2D.format = p->res.pitch2D.format;
+-    a.res.pitch2D.width = p->res.pitch2D.width;
+-    a.res.pitch2D.height = p->res.pitch2D.height;
+-    a.res.pitch2D.pitchInBytes = p->res.pitch2D.pitchInBytes;
+-    a.flags = p->flags;
+-    return &a;
++    a->res.array.hArray = (CUarray)p->res.array.hArray;
++    a->res.mipmap.hMipmappedArray = (CUmipmappedArray)p->res.mipmap.hMipmappedArray;
++    a->res.linear.devPtr = p->res.linear.devPtr;
++    a->res.linear.format = p->res.linear.format;
++    a->res.linear.numChannels = p->res.linear.numChannels;
++    a->res.linear.sizeInBytes = p->res.linear.sizeInBytes;
++    a->res.pitch2D.devPtr = p->res.pitch2D.devPtr;
++    a->res.pitch2D.numChannels = p->res.pitch2D.numChannels;
++    a->res.pitch2D.format = p->res.pitch2D.format;
++    a->res.pitch2D.width = p->res.pitch2D.width;
++    a->res.pitch2D.height = p->res.pitch2D.height;
++    a->res.pitch2D.pitchInBytes = p->res.pitch2D.pitchInBytes;
++    a->flags = p->flags;
+ }
+ 
+ typedef struct hip_Memcpy2D {
