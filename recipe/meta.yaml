@@ -34,6 +34,8 @@ source:
   - url: https://github.com/ROCm/hipother/archive/refs/tags/rocm-{{ version }}.tar.gz
     sha256: 0bebb3774debcecc0b29a0cc5aa98e373a3ee7acf161503d0d9c9d0ecc8b8010
     folder: hipother
+    patches:
+      - 0001-Fix-return-of-temporary.patch
     
 build:
   number: 4
