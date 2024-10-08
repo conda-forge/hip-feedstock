@@ -66,4 +66,4 @@ done
 
 # register the opencl implementation
 mkdir -p $PREFIX/etc/OpenCL/vendors
-echo "$PREFIX/lib/lib/libamdocl64.so" >> $PREFIX/etc/OpenCL/vendors/amdocl64.icd
+echo "$PREFIX/lib/libamdocl64.so" >> $PREFIX/etc/OpenCL/vendors/amdocl64.icd
