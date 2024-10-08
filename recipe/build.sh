@@ -18,6 +18,11 @@ export CXXFLAGS="$CXXFLAGS -I$SRC_DIR/clr/opencl/khronos/headers/opencl2.2/"
 
 install $SRC_DIR/clr/rocclr/platform/prof_protocol.h $PREFIX/include
 
+install -d $PREFIX/include/hip/nvidia_detail
+for f in $SRC_DIR/hipother/hipnv/include/hip/nvidia_detail/*.h; do \
+    install $f $PREFIX/include/hip/nvidia_detail ; \
+done
+
 cmake -LAH \
   ${CMAKE_ARGS} \
   -DCLR_BUILD_HIP=ON \
