@@ -180,7 +180,7 @@ about:
   license_file:
     - clr/LICENCE
     - hip/LICENSE.txt
-    - hipcc/LICENSE.txt
+    - hipcc/amd/hipcc/LICENSE.txt
   summary: 'HIP: C++ Heterogeneous-Compute Interface for Portability '
 
 extra:
