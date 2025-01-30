@@ -1,5 +1,5 @@
 {% set name = "hip" %}
-{% set version = "6.0.2" %}
+{% set version = "6.1.0" %}
 {% set major_version = version.split('.')[0] %}
 {% set minor_version = version.split('.')[1] %}
 {% set major_minor_version = ".".join(version.split(".")[:2]) %}
@@ -11,11 +11,11 @@ package:
 
 source:
   - url: https://github.com/ROCm/HIP/archive/refs/tags/rocm-{{ version }}.tar.gz
-    sha256: b47178db94f2acc106e1a88ceb029844805266ebaba11ef63744e90d224b11be
+    sha256: 6fd57910a16d0b54df822807e67b6207146233a2de5a46c6a05b940a21e2c4d7
     folder: hip
 
   - url: https://github.com/ROCm/clr/archive/refs/tags/rocm-{{ version }}.tar.gz
-    sha256: cb8ac610c8d4041b74fb3129c084f1e7b817ce1a5a9943feca1fa7531dc7bdcc
+    sha256: 49b23eef621f4e8e528bb4de8478a17436f42053a2f7fde21ff221aa683205c7
     folder: clr
     patches:
       - 0001-Don-t-try-to-install-windows-files-on-linux.patch
@@ -23,8 +23,8 @@ source:
       - 0002-Remove-download-of-libamd64.so.5.patch
       - 0004-Fix-hip-config.cmake-when-it-is-not-a-symlink.patch
 
-  - url: https://github.com/ROCm/HIPCC/archive/refs/tags/rocm-{{ version }}.tar.gz
-    sha256: d6209b14fccdd00d7231dec4b4f962aa23914b9dde389ba961370e8ba918bde5
+  - url: https://github.com/ROCm/llvm-project/archive/refs/tags/rocm-{{ version }}.tar.gz
+    sha256: 6bd9912441de6caf6b26d1323e1c899ecd14ff2431874a2f5883d3bc5212db34
     folder: hipcc
     patches:
       - 0001-Remove-QUIET-from-cmake-rocm-detection.patch
@@ -32,7 +32,7 @@ source:
       - 0003-Fix-cmake-backward-compatibility.patch
 
 build:
-  number: 4
+  number: 0
   skip: True  # [not linux]
 
 requirements:
