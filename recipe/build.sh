@@ -2,7 +2,7 @@
 
 set -xeuo pipefail
 
-pushd hipcc
+pushd hipcc/amd/hipcc
 mkdir build
 cd build
 cmake ${CMAKE_ARGS} ..

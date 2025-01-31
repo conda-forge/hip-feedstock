@@ -1,0 +1,12 @@
+diff -ruN llvm-project-rocm-6.1.0.orig/amd/hipcc/CMakeLists.txt llvm-project-rocm-6.1.0/amd/hipcc/CMakeLists.txt
+--- llvm-project-rocm-6.1.0.orig/amd/hipcc/CMakeLists.txt	2024-03-13 19:30:46.000000000 +0100
++++ llvm-project-rocm-6.1.0/amd/hipcc/CMakeLists.txt	2025-01-31 10:49:14.766199935 +0100
+@@ -6,7 +6,7 @@
+ include(CMakePackageConfigHelpers)
+ include(GNUInstallDirs)
+ 
+-find_package(ROCM QUIET)
++find_package(ROCM REQUIRED)
+ if(ROCM_FOUND)
+   include(ROCMSetupVersion)
+   rocm_setup_version(VERSION "${hipcc_VERSION}")
