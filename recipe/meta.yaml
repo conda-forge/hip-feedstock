@@ -26,8 +26,7 @@ source:
     sha256: 6bd9912441de6caf6b26d1323e1c899ecd14ff2431874a2f5883d3bc5212db34
     folder: hipcc
     patches:
-      - 0001-Remove-QUIET-from-cmake-rocm-detection.patch
-      - 0002-Make-rocm-cmake-required.patch
+      - make-cmake-rocm-detection-required.patch
       - 0003-Fix-cmake-backward-compatibility.patch
 
 build:
