@@ -18,7 +18,6 @@ source:
     sha256: 49b23eef621f4e8e528bb4de8478a17436f42053a2f7fde21ff221aa683205c7
     folder: clr
     patches:
-      - 0001-Don-t-try-to-install-windows-files-on-linux.patch
       - 0001-Mark-raw-strings.patch
       - 0002-Remove-download-of-libamd64.so.5.patch
       - 0004-Fix-hip-config.cmake-when-it-is-not-a-symlink.patch
