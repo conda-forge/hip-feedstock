@@ -24,8 +24,8 @@ source:
     sha256: 4df9aba24e574edf23844c0d2d9dda112811db5c2b08c9428604a21b819eb23d
     folder: hipcc
     patches:
-      - make-cmake-rocm-detection-required.patch
-      - 0003-Fix-cmake-backward-compatibility.patch
+      - 0001-Make-cmake-rocm-detection-required.patch
+      - 0002-Fix-cmake-backward-compatibility.patch
 
 build:
   number: 0
