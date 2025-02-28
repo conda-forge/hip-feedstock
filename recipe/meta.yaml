@@ -19,8 +19,6 @@ source:
     folder: clr
     patches:
       - 0001-Mark-raw-strings.patch
-      - 0002-Remove-download-of-libamd64.so.5.patch
-      - 0004-Fix-hip-config.cmake-when-it-is-not-a-symlink.patch
 
   - url: https://github.com/ROCm/llvm-project/archive/refs/tags/rocm-{{ version }}.tar.gz
     sha256: 4df9aba24e574edf23844c0d2d9dda112811db5c2b08c9428604a21b819eb23d
