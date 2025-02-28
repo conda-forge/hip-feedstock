@@ -46,9 +46,9 @@ requirements:
     - wget
     - python *
   host:
-    - clangdev 17.*
+    - clangdev 19.*
     - numactl
-    - llvmdev  17.*
+    - llvmdev  19.*
     - ocl-icd
     - rocm-comgr {{ major_minor_version }}.*
     - rocr-runtime {{ major_minor_version }}.*
