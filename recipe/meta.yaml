@@ -151,7 +151,7 @@ outputs:
         - {{ pin_compatible("rocr-runtime") }}
         - libnuma
     files:
-      - lib/libamdocl64.so
+      - lib/libamdocl64.so*
       - share/doc/opencl/LICENSE.txt
     test:
       commands:
