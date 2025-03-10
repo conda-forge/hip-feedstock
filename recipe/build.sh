@@ -36,7 +36,9 @@ make VERBOSE=1 -j${CPU_COUNT}
 make install
 
 FILES_TO_REMOVE="
-    lib/libOpenCL.so.1.2
+    lib/libOpenCL.so
+    lib/libOpenCL.so.1
+    lib/libOpenCL.so.1.0.0
     lib/libcltrace.so
     include/CL/cl.hpp
     include/CL/cl2.hpp
