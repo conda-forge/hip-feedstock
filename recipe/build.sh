@@ -29,6 +29,7 @@ cmake -LAH \
   -DPython3_EXECUTABLE=$BUILD_PREFIX/bin/python \
   -DROCM_PATH=$PREFIX \
   -DAMD_OPENCL_INCLUDE_DIR=$SRC_DIR/clr/opencl/amdocl/ \
+  -DHIP_ENABLE_ROCPROFILER_REGISTER=OFF \
   ..
 
 make VERBOSE=1 -j${CPU_COUNT}
