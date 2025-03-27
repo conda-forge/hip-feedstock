@@ -3,6 +3,7 @@
 set -xeuo pipefail
 
 export ROCM_LIBPATCH_VERSION=${PKG_VERSION//\./0}
+export HIP_CLANG_PATH=${PREFIX}/bin
 
 pushd hipcc/amd/hipcc
 mkdir build
