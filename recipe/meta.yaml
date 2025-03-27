@@ -11,7 +11,7 @@ package:
 
 source:
   - url: https://github.com/ROCm/HIP/archive/refs/tags/rocm-{{ version }}.tar.gz
-    sha256: 59de65b150947bff7f9038cced4680771915bf2040d6efcc8e4871407643b3a2
+    sha256: aa3a5466304d1dbee0d976b50fccb710dd12e2e1d5534793396447c0ff845e2c
     folder: hip
 
   - url: https://github.com/ROCm/clr/archive/refs/tags/rocm-{{ version }}.tar.gz
