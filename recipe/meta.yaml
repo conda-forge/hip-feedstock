@@ -55,6 +55,7 @@ requirements:
     - rocr-runtime {{ major_minor_version }}.*
     - rocm-cmake {{ major_minor_version }}.*
     - zlib
+    - rocminfo {{ major_minor_version }}.*
 
 outputs:
   - name: hip-runtime-amd
