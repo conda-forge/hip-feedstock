@@ -2,6 +2,9 @@
 
 set -xeuo pipefail
 
+export ROCM_LIBPATCH_VERSION=${PKG_VERSION//\./0}
+export HIP_CLANG_PATH=${PREFIX}/bin
+
 pushd hipcc/amd/hipcc
 mkdir build
 cd build
@@ -27,13 +30,17 @@ cmake -LAH \
   -DPython3_EXECUTABLE=$BUILD_PREFIX/bin/python \
   -DROCM_PATH=$PREFIX \
   -DAMD_OPENCL_INCLUDE_DIR=$SRC_DIR/clr/opencl/amdocl/ \
+  -DHIP_ENABLE_ROCPROFILER_REGISTER=OFF \
+  -DHIP_CLANG_PATH=$PREFIX/bin \
   ..
 
 make VERBOSE=1 -j${CPU_COUNT}
 make install
 
 FILES_TO_REMOVE="
-    lib/libOpenCL.so.1.2
+    lib/libOpenCL.so
+    lib/libOpenCL.so.1
+    lib/libOpenCL.so.1.0.0
     lib/libcltrace.so
     include/CL/cl.hpp
     include/CL/cl2.hpp
