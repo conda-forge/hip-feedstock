@@ -26,6 +26,7 @@ source:
     patches:
       - 0001-Make-cmake-rocm-detection-required.patch
       - 0002-Fix-cmake-backward-compatibility.patch
+      - hipcc-path.diff
 
 build:
   number: 0
