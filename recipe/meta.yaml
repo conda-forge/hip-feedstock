@@ -29,7 +29,7 @@ source:
       - hipcc-path.diff
 
 build:
-  number: 1
+  number: 2
   skip: true  # [not linux]
 
 requirements:
@@ -37,10 +37,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
-    - {{ cdt('xorg-x11-proto-devel') }}
-    - {{ cdt('libx11-devel') }}
-    - {{ cdt('mesa-libgl-devel') }}
-    - {{ cdt('mesa-libegl-devel') }}
     - cmake
     - make
     - cppheaderparser
@@ -56,6 +52,10 @@ requirements:
     - rocm-cmake {{ major_minor_version }}.*
     - zlib
     - rocminfo {{ major_minor_version }}.*
+    - xorgproto                        None
+    - xorg-libx11              None
+    - libgl-devel                  None
+    - libegl-devel                  None
 
 outputs:
   - name: hip-runtime-amd
