@@ -52,10 +52,10 @@ requirements:
     - rocm-cmake {{ major_minor_version }}.*
     - zlib
     - rocminfo {{ major_minor_version }}.*
-    - xorgproto                        None
-    - xorg-libx11              None
-    - libgl-devel                  None
-    - libegl-devel                  None
+    - xorg-xorgproto
+    - xorg-libx11
+    - libgl-devel
+    - libegl-devel
 
 outputs:
   - name: hip-runtime-amd
