@@ -13,30 +13,12 @@ Current build status
 ====================
 
 
-<table>
-    
-  <tr>
-    <td>Azure</td>
+<table><tr>
+    <td>GitHub Actions</td>
     <td>
-      <details>
-        <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main">
-          </a>
-        </summary>
-        <table>
-          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
-          <tbody><tr>
-              <td>linux_64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8416&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hip-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
+      <a href="https://github.com/conda-forge/hip-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/hip-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
     </td>
   </tr>
 </table>
@@ -46,7 +28,9 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-hip--compiler-green.svg)](https://anaconda.org/conda-forge/hip-compiler) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip-compiler.svg)](https://anaconda.org/conda-forge/hip-compiler) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip-compiler.svg)](https://anaconda.org/conda-forge/hip-compiler) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip-compiler.svg)](https://anaconda.org/conda-forge/hip-compiler) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-hip--devel-green.svg)](https://anaconda.org/conda-forge/hip-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip-devel.svg)](https://anaconda.org/conda-forge/hip-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip-devel.svg)](https://anaconda.org/conda-forge/hip-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip-devel.svg)](https://anaconda.org/conda-forge/hip-devel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-hip--rocm--clang__linux--64-green.svg)](https://anaconda.org/conda-forge/hip-rocm-clang_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip-rocm-clang_linux-64.svg)](https://anaconda.org/conda-forge/hip-rocm-clang_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip-rocm-clang_linux-64.svg)](https://anaconda.org/conda-forge/hip-rocm-clang_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip-rocm-clang_linux-64.svg)](https://anaconda.org/conda-forge/hip-rocm-clang_linux-64) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-hip--runtime--amd-green.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hip-runtime-amd.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hip-runtime-amd.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hip-runtime-amd.svg)](https://anaconda.org/conda-forge/hip-runtime-amd) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-hipcc-green.svg)](https://anaconda.org/conda-forge/hipcc) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hipcc.svg)](https://anaconda.org/conda-forge/hipcc) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hipcc.svg)](https://anaconda.org/conda-forge/hipcc) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hipcc.svg)](https://anaconda.org/conda-forge/hipcc) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-rocm--opencl-green.svg)](https://anaconda.org/conda-forge/rocm-opencl) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/rocm-opencl.svg)](https://anaconda.org/conda-forge/rocm-opencl) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/rocm-opencl.svg)](https://anaconda.org/conda-forge/rocm-opencl) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/rocm-opencl.svg)](https://anaconda.org/conda-forge/rocm-opencl) |
@@ -62,42 +46,86 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `hip-devel, hip-runtime-amd, hipcc, rocm-opencl, rocm-opencl-runtime` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
-conda install hip-devel hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
+conda install hip-compiler hip-devel hip-rocm-clang_linux-64 hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
-mamba install hip-devel hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
+mamba install hip-compiler hip-devel hip-rocm-clang_linux-64 hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
 ```
 
-It is possible to list all of the versions of `hip-devel` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
 
 ```
-conda search hip-devel --channel conda-forge
+# for adding to your local project
+pixi add hip-compiler hip-devel hip-rocm-clang_linux-64 hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
+# for installing globally
+pixi global install hip-compiler hip-devel hip-rocm-clang_linux-64 hip-runtime-amd hipcc rocm-opencl rocm-opencl-runtime
 ```
 
-or with `mamba`:
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `hip-compiler` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
-mamba search hip-devel --channel conda-forge
+conda search hip-compiler --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With mamba</summary>
+
+```
+mamba search hip-compiler --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search hip-compiler --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search hip-devel --channel conda-forge
+mamba repoquery search hip-compiler --channel conda-forge
 
-# List packages depending on `hip-devel`:
-mamba repoquery whoneeds hip-devel --channel conda-forge
+# List packages depending on `hip-compiler`:
+mamba repoquery whoneeds hip-compiler --channel conda-forge
 
-# List dependencies of `hip-devel`:
-mamba repoquery depends hip-devel --channel conda-forge
+# List dependencies of `hip-compiler`:
+mamba repoquery depends hip-compiler --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
@@ -166,6 +194,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@conda-forge/rocm-core](https://github.com/orgs/conda-forge/teams/rocm-core/)
 * [@isuruf](https://github.com/isuruf/)
 * [@zklaus](https://github.com/zklaus/)
 
