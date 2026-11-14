@@ -4,3 +4,6 @@ github:
   tooling_branch_name: main
 conda_build:
   pkg_format: '2'
+bot:
+  version_updates:
+    allowed_tag_globs: "rocm-*"
