@@ -7,3 +7,4 @@ conda_build:
 bot:
   version_updates:
     allowed_tag_globs: "rocm-*"
+conda_install_tool: pixi
