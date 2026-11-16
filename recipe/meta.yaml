@@ -30,7 +30,7 @@ source:
       - 0003-hipcc-path.diff
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not linux]
 
 requirements:
@@ -104,6 +104,7 @@ outputs:
       - bin/roc-obj-ls
       - include/hip/amd_detail/*
       - include/hip/*.h
+      - include/hip_prof_str.h
       - lib/cmake/hip/FindHIP.cmake
       - lib/cmake/hip/FindHIP/*.cmake
       - lib/cmake/hip/hip-config*.cmake
@@ -113,6 +114,7 @@ outputs:
         - test -f $PREFIX/share/hip/version
         - test -f $PREFIX/lib/cmake/hip/FindHIP.cmake
         - test -f $PREFIX/include/hip/hip_common.h
+        - test -f $PREFIX/include/hip_prof_str.h
         - cmake-package-check hip --targets hip::host hip::device
       requires:
         - cmake-package-check

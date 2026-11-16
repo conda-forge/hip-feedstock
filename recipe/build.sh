@@ -44,10 +44,29 @@ make install
 
 # Note: CLR does not build the Khronos ICD loader (BUILD_ICD is OFF), the
 # libOpenCL.so in the prefix belongs to the ocl-icd host package.
+# CLR also installs its vendored Khronos headers into include/CL, on top of
+# the ones from opencl-headers in the host environment. None of them are
+# packaged here, so remove every header CLR installs rather than leave its
+# copies behind.
+# The roc-obj-*.bat files are Windows helpers that CLR installs on Linux too.
 FILES_TO_REMOVE="
     lib/libcltrace.so
+    bin/roc-obj-extract.bat
+    bin/roc-obj-ls.bat
+    include/CL/cl.h
     include/CL/cl.hpp
     include/CL/cl2.hpp
+    include/CL/cl_dx9_media_sharing_intel.h
+    include/CL/cl_egl.h
+    include/CL/cl_ext.h
+    include/CL/cl_ext_intel.h
+    include/CL/cl_gl.h
+    include/CL/cl_gl_ext.h
+    include/CL/cl_icd.h
+    include/CL/cl_platform.h
+    include/CL/cl_va_api_media_sharing_intel.h
+    include/CL/cl_version.h
+    include/CL/opencl.h
     include/prof_protocol.h
     share/doc/opencl-asan/LICENSE.md
     share/doc/hip-asan/LICENSE.md
