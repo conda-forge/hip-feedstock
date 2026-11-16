@@ -30,7 +30,7 @@ source:
       - 0003-hipcc-path.diff
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not linux]
 
 requirements:
@@ -41,11 +41,9 @@ requirements:
     - cmake
     - make
     - cppheaderparser
-    - wget
     - python *
   host:
     - clangdev {{ llvm_major_version }}.*
-    - numactl
     - llvmdev {{ llvm_major_version }}.*
     - ocl-icd
     - rocm-core {{ version }}.*
@@ -67,7 +65,6 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
       host:
-        - numactl
         - rocm-core {{ version }}.*
         - rocm-comgr {{ major_minor_version }}.*
         - rocr-runtime {{ major_minor_version }}.*
@@ -214,7 +211,6 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
       host:
-        - numactl
         - rocm-core {{ version }}.*
         - rocm-comgr {{ major_minor_version }}.*
         - rocr-runtime {{ major_minor_version }}.*
@@ -232,8 +228,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("rocm-opencl", exact=True) }}
-        - ocl-icd                 # [linux]
-        - khronos-ocl-icd-loader  # [not linux]
+        - ocl-icd
     files:
       - etc/OpenCL/vendors/amdocl64.icd
     test:
