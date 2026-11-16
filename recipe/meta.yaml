@@ -26,11 +26,10 @@ source:
     sha256: 526b5fe23417c41acbeb2273e470887b4593f48a297a8d9c1a1aa730d556f9fb
     folder: hipcc
     patches:
-      - 0002-Fix-cmake-backward-compatibility.patch
       - 0003-hipcc-path.diff
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not linux]
 
 requirements:
@@ -94,6 +93,10 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("hip-runtime-amd") }}
+        # roc-obj-ls and roc-obj-extract are Perl scripts
+        - perl
+        - perl-file-which
+        - perl-uri
     run_exports:
       - {{ pin_subpackage("hip-runtime-amd") }}
     files:
@@ -113,6 +116,8 @@ outputs:
         - test -f $PREFIX/share/hip/version
         - test -f $PREFIX/lib/cmake/hip/FindHIP.cmake
         - test -f $PREFIX/include/hip/hip_common.h
+        - roc-obj-ls -h
+        - roc-obj-extract -h
         - cmake-package-check hip --targets hip::host hip::device
       requires:
         - cmake-package-check
@@ -132,8 +137,6 @@ outputs:
         - clang {{ llvm_major_version }}.*
         - clangxx {{ llvm_major_version }}.*
         - llvm-tools {{ llvm_major_version }}.*
-        - perl
-        - python *
         - rocm-core {{ version }}.*
         - rocminfo {{ major_minor_version }}.*
         # rocm-device-libs, lld and clang-tools are required for HIP compilation
@@ -143,10 +146,7 @@ outputs:
         - compiler-rt {{ llvm_major_version }}.*
     files:
       - bin/hipcc
-      - bin/hipcc.bin
-      - bin/hipcc.pl
       - bin/hipconfig*
-      - bin/hipvars.pm
       - share/doc/hipcc/*
       - etc/conda/activate.d/hip_activate.sh
       - etc/conda/deactivate.d/hip_deactivate.sh
