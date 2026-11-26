@@ -8,10 +8,16 @@ export HIP_CLANG_PATH=${PREFIX}/bin
 # CMAKE_DISABLE_FIND_PACKAGE_Git: the build directory sits inside the feedstock
 # git checkout, so without this the CLR/hipcc CMake code picks up the feedstock's
 # commit hash and bakes it into the library and package version strings.
+# HIPCC_BACKWARD_COMPATIBILITY: the legacy hip/bin directory of symlinks is not
+# shipped.
 pushd hipcc/amd/hipcc
 mkdir build
 cd build
-cmake ${CMAKE_ARGS} -DCMAKE_REQUIRE_FIND_PACKAGE_ROCM=TRUE -DCMAKE_DISABLE_FIND_PACKAGE_Git=ON ..
+cmake ${CMAKE_ARGS} \
+  -DCMAKE_REQUIRE_FIND_PACKAGE_ROCM=TRUE \
+  -DCMAKE_DISABLE_FIND_PACKAGE_Git=ON \
+  -DHIPCC_BACKWARD_COMPATIBILITY=OFF \
+  ..
 make VERBOSE=1 -j${CPU_COUNT}
 make install
 popd
@@ -44,7 +50,10 @@ make install
 
 # Note: CLR does not build the Khronos ICD loader (BUILD_ICD is OFF), the
 # libOpenCL.so in the prefix belongs to the ocl-icd host package.
+# bin/hipvars.pm is a leftover of the Perl hipcc; hipcc and hipconfig are
+# compiled binaries now and nothing reads it.
 FILES_TO_REMOVE="
+    bin/hipvars.pm
     lib/libcltrace.so
     include/CL/cl.hpp
     include/CL/cl2.hpp
@@ -70,6 +79,14 @@ do
 done
 
 popd
+
+# conda-build does not rewrite Perl shebangs, so point these scripts at the
+# perl of the environment instead of /usr/bin/perl.
+for SCRIPT in roc-obj-ls roc-obj-extract
+do
+  sed -i '1s|^#!/usr/bin/perl$|#!/usr/bin/env perl|' "$PREFIX/bin/$SCRIPT"
+  head -n 1 "$PREFIX/bin/$SCRIPT" | grep -qxF '#!/usr/bin/env perl'
+done
 
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
